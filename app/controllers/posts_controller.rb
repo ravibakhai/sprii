@@ -25,11 +25,11 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
-    if user_signed_in?
-      @post.user = current_user
-    else
-      @post.company = current_company
-    end
+      if user_signed_in?
+        @post.user = current_user
+      else
+        @post.company_id = current_company.id
+      end
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
