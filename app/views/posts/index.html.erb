@@ -19,13 +19,27 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                      <%= link_to 'Feed', posts_path %>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                      <% if current_user.nil? %>
+                        <%= link_to 'Sign Up', new_user_registration_path %>
+                      <% else %>
+                      <% end %>
                     </li>
                     <li>
-                        <a href="#">Contact</a>
+                      <% if current_user.nil? %>
+                        <%= link_to 'Log In', new_user_session_path %>
+                      <% else %>
+                        <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
+                      <% end %>
+                    </li>
+                    <li> <% if user_signed_in? %>
+                      <strong class="login">Hi <%= current_user.email %></strong>
+                      <% end %>
+                    </li>
+                    <li>
+                        <a href="#">Profile</a>
                     </li>
                 </ul>
             </div>
@@ -78,5 +92,8 @@
 </table>
 
 <br>
-
+  <% if user_signed_in? %>
 <%= link_to 'New Post', new_post_path %>
+  <% else %>
+  <%= puts 'You must sign in to post' %>
+  <% end %>
