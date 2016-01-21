@@ -39,6 +39,23 @@
                       <% end %>
                     </li>
                     <li>
+                      <% if current_company.nil? %>
+                        <%= link_to 'Sign Up', new_company_registration_path %>
+                      <% else %>
+                      <% end %>
+                    </li>
+                    <li>
+                      <% if current_company.nil? %>
+                        <%= link_to 'Log In', new_company_session_path %>
+                      <% else %>
+                        <%= link_to 'Log Out', destroy_company_session_path, method: :delete %>
+                      <% end %>
+                    </li>
+                    <li> <% if company_signed_in? %>
+                      <strong class="login">Hi <%= current_company.email %></strong>
+                      <% end %>
+                    </li>
+                    <li>
                         <a href="#">Profile</a>
                     </li>
                 </ul>
@@ -92,7 +109,7 @@
 </table>
 
 <br>
-  <% if user_signed_in? %>
+  <% if user_signed_in? | company_signed_in? %>
 <%= link_to 'New Post', new_post_path %>
   <% else %>
   <%= puts 'You must sign in to post' %>
